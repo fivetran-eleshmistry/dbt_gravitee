@@ -45,6 +45,14 @@ vars:
   salesforce:
     salesforce_database: reporting-299920
     salesforce_schema: salesforce
+    
+  google_ads-source:
+    zendesk_database: reporting-299920
+    zendesk_schema: adwords
+    
+  google_ads:
+    zendesk_database: reporting-299920
+    zendesk_schema: adwords
 
 
 # prevents empty trigger and transformations form being created if they do not exist
