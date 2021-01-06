@@ -1,7 +1,31 @@
 jobs:
-# Give each job a unique name. The name will be displayed in the Fivetran dashboard once your jobs are imported.
- - name: every5minutes
-   schedule: '*/5 * * * *' # The example will run every 5 minutes. Note that the cron string is quoted as otherwise it will be treated as invalid alias node (see https://yaml.org/spec/1.2/spec.html#*%20alias// for details)
-   steps:
-     - name: run models
-       command: dbt run
+
+- name: fivetran_log
+  schedule: '*/5 * * * *'
+  steps:
+    - name: run fivetran log 
+      command: dbt run --models fivetran_log 
+
+- name: zendesk
+  schedule: '*/5 * * * *'
+  steps:
+    - name: run zendesk 
+      command: dbt run --models +zendesk
+      
+- name: hubpot
+  schedule: '*/5 * * * *'
+  steps:
+    - name: run netsuite models 
+      command: dbt run --models hubspot
+
+# - name: specifictime815ampst
+#   schedule: 15 8 * * *
+#   steps:
+#     - name: run models 
+#       command: dbt run --target dev
+
+# - name: every55minutes
+#   schedule: '*/5 * * * *'
+#   steps:
+#     - name: run models 
+#       command: dbt run --target dev
