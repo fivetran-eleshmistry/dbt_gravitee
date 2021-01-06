@@ -12,10 +12,10 @@ jobs:
     - name: run zendesk 
       command: dbt run --models +zendesk
       
-- name: hubpot
+- name: hubspot
   schedule: '*/5 * * * *'
   steps:
-    - name: run netsuite models 
+    - name: run hubspot models 
       command: dbt run --models hubspot
 
 # - name: specifictime815ampst
