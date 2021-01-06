@@ -1,35 +1,57 @@
+name: gravitee
 
-# Name your project! Project names should contain only lowercase characters
-# and underscores. A good package name should reflect your organization's
-# name or the intended use of these models
-name: 'gravitee_project'
-version: '1.0.0'
 config-version: 2
+version: '0.0.1'
 
-# This setting configures which "profile" dbt uses for this project.
-profile: 'gravitee-db'
+# Need to Check With Team To Ensure That Custom Profiles Are Not Supported
+profile: fivetran_dbt
 
-# These configurations specify where dbt should look for different types of files.
-# The `source-paths` config, for example, states that models in this project can be
-# found in the "models/" directory. You probably won't need to change these!
-source-paths: ["models"]
-analysis-paths: ["analysis"]
-test-paths: ["tests"]
-data-paths: ["data"]
-macro-paths: ["macros"]
-snapshot-paths: ["snapshots"]
+require-dbt-version: [">=0.17.0", "<=0.18.0"]
 
-target-path: "target"  # directory which will store compiled SQL files
-clean-targets:         # directories to be removed by `dbt clean`
-    - "target"
-    - "dbt_modules"
+# See Quoting Docs for Snowflake
+# https://docs.getdbt.com/reference/project-configs/quoting
+quoting:
+  database: false
+  schema: false
+  identifier: false
 
+vars:
+  fivetran_log:
+      unioning_multiple_destinations: false # disables macro for combining multiple destinations' Log Connectors"
+      account: "{{ source('fivetran_log', 'account') }}" 
+      account_membership: "{{ source('fivetran_log', 'account_membership') }}"
+      active_volume: "{{ source('fivetran_log', 'active_volume') }}"
+      connector: "{{ source('fivetran_log', 'connector') }}"  
+      credits_used: "{{ source('fivetran_log', 'credits_used') }}"
+      destination: "{{ source('fivetran_log', 'destination') }}"
+      destination_membership: "{{ source('fivetran_log', 'destination_membership') }}" 
+      log: "{{ source('fivetran_log', 'log') }}" 
+      transformation: "{{ source('fivetran_log', 'transformation') }}"
+      trigger_table: "{{ source('fivetran_log', 'trigger_table') }}"
+      user: "{{ source('fivetran_log', 'user') }}"
 
-# Configuring models
-# Full documentation: https://docs.getdbt.com/docs/configuring-models
+  zendesk_source:
+    zendesk_database: na_gr_dbt_01
+    zendesk_schema: zendesk
+    using_schedules: false        # Disable if you do not have the schedule and ticket_schedule tables, or if you do not want metrics reported in business hours
+    using_sla_policy: false       # Disable if you are not using SLAs 
+  
+  zendesk:
+    using_schedules: false
+    using_sla_policy: false
 
-# In this example config, we tell dbt to build all models in the example/ directory
-# as tables. These settings can be overridden in the individual model files
-# using the `{{ config(...) }}` macro.
+  salesforce:
+    salesforce_schema: salesforce
+    salesforce_database: na_gr_dbt_01
+
+# prevents empty trigger and transformations form being created if they do not exist
+# set to true if you still wish for them to be created
 models:
-  gravitee_project:
+  fivetran_log:
+    fivetran_log_transformation_status:
+      +enabled: false
+    staging:
+      stg_fivetran_log_trigger_table:
+        +enabled: false
+      stg_fivetran_log_transformation:
+        +enabled: false
