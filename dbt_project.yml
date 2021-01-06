@@ -31,18 +31,21 @@ vars:
       user: "{{ source('fivetran_log', 'user') }}"
 
   zendesk_source:
-    zendesk_database: na_gr_dbt_01
+    zendesk_database: reporting-299920
     zendesk_schema: zendesk
     using_schedules: false        # Disable if you do not have the schedule and ticket_schedule tables, or if you do not want metrics reported in business hours
     using_sla_policy: false       # Disable if you are not using SLAs 
   
   zendesk:
+    zendesk_database: reporting-299920
+    zendesk_schema: zendesk
     using_schedules: false
     using_sla_policy: false
 
   salesforce:
+    salesforce_database: reporting-299920
     salesforce_schema: salesforce
-    salesforce_database: na_gr_dbt_01
+
 
 # prevents empty trigger and transformations form being created if they do not exist
 # set to true if you still wish for them to be created
