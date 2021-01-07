@@ -12,17 +12,17 @@ jobs:
     - name: run zendesk 
       command: dbt run --models +zendesk
       
-- name: hubspot
-  schedule: '*/5 * * * *'
-  steps:
-    - name: run hubspot models 
-      command: dbt run --models +hubspot
+#- name: hubspot
+#  schedule: '*/5 * * * *'
+#  steps:
+#    - name: run hubspot models 
+#      command: dbt run --models +hubspot
       
-- name: google_ads
-  schedule: '*/5 * * * *'
-  steps:
-    - name: run google_ads models 
-      command: dbt run --models +google_ads
+#- name: google_ads
+#  schedule: '*/5 * * * *'
+#  steps:
+#    - name: run google_ads models 
+#      command: dbt run --models +google_ads
 
 # - name: specifictime815ampst
 #   schedule: 15 8 * * *
