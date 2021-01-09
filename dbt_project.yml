@@ -53,8 +53,15 @@ vars:
   google_ads:
     zendesk_database: reporting-299920
     zendesk_schema: adwords
-
-
+    
+  github_source:
+    github_database: reporting-299920
+    github_schema: github
+    
+  github:
+    github_database: reporting-299920
+    github_schema: github
+    
 # prevents empty trigger and transformations form being created if they do not exist
 # set to true if you still wish for them to be created
 models:
