@@ -12,6 +12,12 @@ jobs:
     - name: run zendesk 
       command: dbt run --models +zendesk
       
+- name: github
+  schedule: '*/5 * * * *'
+  steps:
+    - name: run github 
+      command: dbt run --models +github
+      
 #- name: hubspot
 #  schedule: '*/5 * * * *'
 #  steps:
