@@ -18,11 +18,11 @@ jobs:
     - name: run github 
       command: dbt run --models +github
       
-#- name: hubspot
-#  schedule: '*/5 * * * *'
-#  steps:
-#    - name: run hubspot models 
-#      command: dbt run --models +hubspot
+- name: hubspot
+  schedule: '*/5 * * * *'
+  steps:
+    - name: run hubspot 
+      command: dbt run --models +hubspot
       
 #- name: google_ads
 #  schedule: '*/5 * * * *'
